@@ -1,0 +1,1 @@
+oc -nglusterfs rsh $(oc -nglusterfs get pods -l"glusterfs=heketi-storage-pod" -oname | sed 's/pods\///g') bash -c "for volume in \$(heketi-cli volume list --user=admin --secret=\"\$HEKETI_ADMIN_KEY\" | grep -e \"volume[0-9]\" | awk '{print $1}' | sed 's/Id://g'); do heketi-cli volume delete --user=admin --secret=\"\$HEKETI_ADMIN_KEY\" \$volume; done"
